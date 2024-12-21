@@ -12,7 +12,7 @@ export default function IntroSection() {
           transition={{ duration: 1 }}
           viewport={{ once: true }}
         >
-          Hey, I'm Chris
+          Hey, Im Chris
         </motion.h2>
         <motion.p
           className="text-lg md:text-xl mb-8 max-w-3xl leading-relaxed"

@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image"; // Import the Next.js Image component
 
 type Project = {
   title: string;
@@ -35,11 +36,13 @@ export default function PortfolioGrid() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
           >
-            <div className="aspect-w-16 aspect-h-9 mb-4">
-              <img
+            <div className="aspect-w-16 aspect-h-9 mb-4 relative">
+              <Image
                 src={p.image}
                 alt={p.title}
-                className="object-cover w-full h-full rounded group-hover:scale-105 transition-transform"
+                layout="fill" // Ensure the image fills the container
+                className="object-cover rounded group-hover:scale-105 transition-transform"
+                priority={i === 0} // Prioritize the first image for faster loading
               />
             </div>
             <h3 className="text-xl font-semibold text-white mb-2">{p.title}</h3>

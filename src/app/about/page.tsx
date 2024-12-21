@@ -19,9 +19,9 @@ export default function About() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 1 }}
       >
-        Hey there! I’m Chris—an artist and game designer with a passion for 
+        Hey there! Im Chris—an artist and game designer with a passion for 
         creating immersive worlds, vibrant characters, and intuitive user 
-        experiences. I thrive on bringing imaginations to life, whether it’s 
+        experiences. I thrive on bringing imaginations to life, whether its 
         through board games, video game art, or polished interfaces.
       </motion.p>
 

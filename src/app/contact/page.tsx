@@ -12,12 +12,12 @@ export default function Contact() {
         transition={{ duration: 0.8 }}
       >
         <h1 className="text-4xl md:text-5xl font-extrabold text-lime-400 mb-4">
-          Let’s Connect!
+          Lets Connect!
         </h1>
         <p className="text-gray-300 text-lg md:text-xl">
-          I’m excited to hear about your project or collaboration ideas. 
-          Whether it’s a new game concept, illustration gig, or UX/UI challenge, 
-          drop me a line below and let's create something epic together.
+          Im excited to hear about your project or collaboration ideas. 
+          Whether its a new game concept, illustration gig, or UX/UI challenge, 
+          drop me a line below and lets create something epic together.
         </p>
       </motion.div>
 

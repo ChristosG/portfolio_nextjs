@@ -1,59 +1,20 @@
-// src/app/portfolio/[slug]/page.tsx
-
+import projects from "@/data/projects";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
-// We'll just re-use the data from the main page for demonstration.
-// In a real app, you might store this in a separate file or database.
-const allProjects: Project[] = [
-    {
-      title: "Epic Fantasy Board Game Art",
-      slug: "epic-fantasy",
-      category: "board-game",
-      image: "/images/fantasy-board-game.jpg",
-      description: "Immersive fantasy characters & environments for a tabletop RPG.",
-    },
-    {
-      title: "Sci-Fi Game Interface",
-      slug: "scifi-interface",
-      category: "ux-ui",
-      image: "/images/scifi-ui.jpg",
-      description: "Futuristic UI designs for a space exploration video game.",
-    },
-    {
-      title: "Cartoon Character Illustrations",
-      slug: "cartoon-characters",
-      category: "illustration",
-      image: "/images/cartoon-illustrations.jpg",
-      description: "Playful, vibrant illustrations for a kids’ board game.",
-    },
-    {
-      title: "Dungeon Crawler Concept",
-      slug: "dungeon-crawler",
-      category: "board-game",
-      image: "/images/dungeon-crawler.jpg",
-      description: "Dark, gritty board game design for deep dungeon quests.",
-    },
-    {
-      title: "Minimalist Mobile UI",
-      slug: "minimalist-mobile",
-      category: "ux-ui",
-      image: "/images/minimalist-mobile-ui.jpg",
-      description: "Sleek, user-friendly interface for iOS and Android devices.",
-    },
-    {
-      title: "Cyberpunk Poster Art",
-      slug: "cyberpunk-poster",
-      category: "illustration",
-      image: "/images/cyberpunk-art.jpg",
-      description: "High-contrast, neon-lit illustrations inspired by cyberpunk vibes.",
-    },
-    // ...add as many as you like!
-  ];
-  
-export default function ProjectDetail({ params }: { params: { slug: string } }) {
-  const { slug } = params;
-  const project = allProjects.find((p) => p.slug === slug);
+export default async function ProjectDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  // Await the params as it's a Promise
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
 
+  // Find the project based on the slug
+  const project = projects.find((p) => p.slug === slug);
+
+  // If no project is found, render a 404 page
   if (!project) {
     notFound();
   }
@@ -61,16 +22,31 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
   return (
     <div className="min-h-screen bg-black text-white py-12 px-6 md:px-12">
       <h1 className="text-4xl font-extrabold text-lime-400 mb-4">
-        {project?.title}
+        {project.title}
       </h1>
-      <img
-        src={project?.image}
-        alt={project?.title}
-        className="w-full max-w-4xl mb-6 rounded-lg"
-      />
-      <p className="text-lg text-gray-300 mb-8">{project?.description}</p>
-
-      {/* Extra details, maybe a carousel, paragraphs about the project, etc. */}
+      {project.layout.map((block, i) => {
+        if (block.type === "text") {
+          return (
+            <div key={i} className="my-4">
+              <p className="text-gray-300 whitespace-pre-line">
+                {block.content}
+              </p>
+            </div>
+          );
+        } else if (block.type === "image") {
+          return (
+            <div key={i} className="my-4 relative w-full h-64">
+              <Image
+                src={block.src || "/images/placeholder.jpg"}
+                alt="block image"
+                fill
+                className="object-cover rounded"
+              />
+            </div>
+          );
+        }
+        return null;
+      })}
     </div>
   );
 }
